@@ -1,147 +1,109 @@
-# Latencia-del-Mercado-Sectorial-a-Noticias
-Latencia del Mercado Sectorial a Noticias
+# Latencia del Mercado Sectorial a Noticias
 
-Latencia del Mercado Sectorial a Noticias
 Medición de la Eficiencia Sectorial ante Eventos de Ganancias
-📌 Descripción
+
+## 📌Descripción
 
 Este proyecto analiza qué tan rápido reacciona el mercado, a nivel sectorial, ante un evento corporativo relevante, específicamente anuncios de Ganancias.
 
 La reacción se mide observando el tiempo (en días) que tarda el volumen de negociación en mostrar un spike significativo, definido como un volumen 2.5 veces superior al promedio de los últimos 30 días.
 
 El objetivo es identificar sectores más eficientes (reaccionan rápido) frente a sectores más lentos (reaccionan con retraso), lo que puede revelar:
+-  Diferencias en seguimiento institucional
+- Asimetrías de información
+- Oportunidades de arbitraje temporal
 
-Diferencias en seguimiento institucional
+## 🧠Insight clave
 
-Asimetrías de información
-
-Oportunidades de arbitraje temporal
-
-🧠 Insight clave
-
-¿Qué sector presenta el menor retraso promedio entre un anuncio de Ganancias y una reacción fuerte de volumen?
+- ¿Qué sector presenta el menor retraso promedio entre un anuncio de Ganancias y una reacción fuerte de volumen?
 
 Un menor retraso implica:
-
-Mayor eficiencia informacional
-
-Participación institucional temprana
-
-Menor ventana de oportunidad para traders tácticos
+- Mayor eficiencia informacional
+- Participación institucional temprana
+- Menor ventana de oportunidad para traders tácticos
 
 Un mayor retraso puede indicar:
+- Menor cobertura analítica
+- Dominancia de inversores minoristas
+- Potenciales oportunidades de late entry
 
-Menor cobertura analítica
-
-Dominancia de inversores minoristas
-
-Potenciales oportunidades de late entry
-
-📊 Valor de negocio
+## 📊Valor de negocio
 
 Este análisis es útil para:
-
-Trading cuantitativo
+- Trading cuantitativo
 Ajustar horizontes de entrada post-evento según el sector.
 
-Gestión de riesgo
+- Gestión de riesgo
 Sectores con reacción tardía pueden experimentar movimientos más violentos cuando el volumen finalmente aparece.
 
-Asignación sectorial
+- Asignación sectorial
 Preferir sectores con alta eficiencia si se busca menor incertidumbre post-noticia.
 
-Análisis de microestructura
+- Análisis de microestructura
 Medir la velocidad de incorporación de la información al precio.
 
-🗂️ Estructura de datos requerida
+## 🗂️Estructura de datos requerida
 
 El proyecto utiliza cuatro tablas principales:
+- eventos_corporativos
+- ticker_id
+- fecha
+- tipo_evento (filtrado a 'Ganancias')
+- precios_diarios
+- ticker_id
+- fecha
+- volume
+- tickers
+- ticker_id
+- sector
 
-eventos_corporativos
+## ⚙️Lógica del análisis
 
-ticker_id
-
-fecha
-
-tipo_evento (filtrado a 'Ganancias')
-
-precios_diarios
-
-ticker_id
-
-fecha
-
-volume
-
-tickers
-
-ticker_id
-
-sector
-
-⚙️ Lógica del análisis
-
-Identificación del evento
-
-Se seleccionan anuncios de Ganancias por ticker.
-
-Detección de volumen anómalo
-
-Se busca el primer día posterior al evento donde:
-
-volumen_del_día > 2.5 × promedio_volumen_30_días
+- Identificación del evento
+- Se seleccionan anuncios de Ganancias por ticker.
+- Detección de volumen anómalo
+- Se busca el primer día posterior al evento donde:
+   volumen_del_día > 2.5 × promedio_volumen_30_días
 
 
 Cálculo de latencia
 
 Se calcula la diferencia en días entre:
+- fecha_evento
+- fecha_volumen_anomalo
+- Agregación sectorial
 
-fecha_evento
+*Se obtiene el promedio de días de reacción por sector.*
 
-fecha_volumen_anomalo
+*Se descartan sectores con menos de 2 observaciones para robustez estadística.*
 
-Agregación sectorial
+## 📈Interpretación de resultados
 
-Se obtiene el promedio de días de reacción por sector.
+- Promedio bajo de días de reacción
+- Sector altamente eficiente
+- Reacción casi inmediata a la información
+- Promedio alto de días de reacción
+- Retraso en absorción de noticias
+- Posibles oportunidades de event-driven trading
+- El ranking final ordena los sectores desde el más rápido al más lento en reaccionar.
 
-Se descartan sectores con menos de 2 observaciones para robustez estadística.
+## 🚀 Posibles extensiones
 
-📈 Interpretación de resultados
+-  reacción de volumen vs. reacción de precio
+- Medir latencia para otros eventos (Dividendo, M&A, Problemas Regulatorios)
+- Analizar dispersión (no solo promedio) por sector
+- Introducir normalización por capitalización bursátil
+- Construir un Índice de Eficiencia Informacional Sectorial
 
-Promedio bajo de días de reacción
+## 🧪Notas técnicas
 
-Sector altamente eficiente
-
-Reacción casi inmediata a la información
-
-Promedio alto de días de reacción
-
-Retraso en absorción de noticias
-
-Posibles oportunidades de event-driven trading
-
-El ranking final ordena los sectores desde el más rápido al más lento en reaccionar.
-
-🚀 Posibles extensiones
-
-Comparar reacción de volumen vs. reacción de precio
-
-Medir latencia para otros eventos (Dividendo, M&A, Problemas Regulatorios)
-
-Analizar dispersión (no solo promedio) por sector
-
-Introducir normalización por capitalización bursátil
-
-Construir un Índice de Eficiencia Informacional Sectorial
-
-🧪 Notas técnicas
-
-El umbral de volumen (2.5x) puede ajustarse según el mercado.
-
-El promedio móvil de 30 días reduce falsos positivos por estacionalidad.
-
-Recomendado usar índices en:
+- El umbral de volumen (2.5x) puede ajustarse según el mercado.
+- El promedio móvil de 30 días reduce falsos positivos por estacionalidad.
+- Recomendado usar índices en:
 
 (ticker_id, fecha) en precios_diarios
 
 (ticker_id, fecha, tipo_evento) en eventos_corporativos
+
+## 👤Autora
+Flavia Hepp Proyecto de SQL aplicó un análisis de riesgo basado en eventos.
