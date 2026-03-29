@@ -107,3 +107,44 @@ Se calcula la diferencia en días entre:
 
 ## 👤Autora
 Flavia Hepp Proyecto de SQL aplicó un análisis de riesgo basado en eventos.
+
+***
+🚀 **¿Qué tan rápido reacciona el mercado… según el sector?**
+
+En mercados eficientes, la información debería reflejarse en precios (y volumen) casi instantáneamente. Pero en la práctica, no todos los sectores reaccionan igual.
+
+👉 Estuve analizando la **latencia sectorial ante eventos de Ganancias**, midiendo cuántos días tarda en aparecer un *spike* significativo de volumen (ratio > 2.5 vs. promedio de 30 días).
+
+💡 **Insight clave:**
+Hay sectores donde el mercado reacciona casi de inmediato… y otros donde la señal tarda varios días en materializarse.
+
+---
+
+📊 **¿Qué significa esto?**
+
+* Sectores con **baja latencia** → mayor eficiencia informacional
+* Sectores con **alta latencia** → posibles ineficiencias explotables
+* Oportunidad para estrategias de **event-driven trading** o **post-earnings drift**
+
+---
+
+🧠 **Cómo lo medí:**
+
+* Detecté eventos de *Ganancias*
+* Identifiqué el primer día posterior con volumen anómalo
+* Calculé el retraso promedio por sector
+* Filtré sectores con suficiente cantidad de eventos
+
+---
+
+⚡ **¿Por qué importa?**
+
+Porque no todos los mercados son igual de rápidos.
+Y donde hay retrasos… puede haber oportunidad.
+
+---
+
+📌 Me interesa saber:
+¿Han visto diferencias claras en la velocidad de reacción entre sectores en sus análisis?
+
+#DataScience #QuantFinance #StockMarket #SQL #Trading #MachineLearning #Analytics
